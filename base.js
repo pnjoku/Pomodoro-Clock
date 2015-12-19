@@ -4,6 +4,7 @@ var interval = null;
 var sessionMinutesRemaining = null;
 var breakMinutesRemaining = null;
 var secondsRemaining = 0;
+var val = 0;
 
 function SessionPlus() {
   sessionLength = $('#sessionLength').text();
@@ -14,7 +15,7 @@ function SessionPlus() {
 function SessionMinus() {
   sessionLength = $('#sessionLength').text();
   sessionLength = (parseInt(sessionLength));
-  if(sessionLength > 0)
+  if(sessionLength > 1)
   sessionLength = sessionLength - 1;
   $('#sessionLength').html(sessionLength);
 }
@@ -28,7 +29,7 @@ function BreakPlus() {
 function BreakMinus() {
   breakLength = $('#breakLength').text();
   breakLength = (parseInt(breakLength));
-  if(breakLength > 0 )
+  if(breakLength > 1 )
     breakLength = breakLength - 1;
   $('#breakLength').html(breakLength);
 }
@@ -37,7 +38,8 @@ function Stop() {
   clearInterval(interval);
   $('#StopButton').css("display", 'none');
   $('#actualClock').text('');
-  $('#id').text('Click Here to Start');
+  $('#id').text('start');
+  $("#clockBorder").prop('disabled', false);
 }
 
 function countDown() {
@@ -53,9 +55,11 @@ function countDown() {
     $('#actualClock').html(sessionMinutesRemaining + ":" + ("0" + secondsRemaining).slice(-2));
 
   } else {
+    $.playSound('http://audiosoundclips.com/wp-content/uploads/2012/01/Bird');
     breakMinutesRemaining = $('#breakLength').text();
     breakMinutesRemaining = (parseInt(breakMinutesRemaining));
     $('#id').text('Break');
+    $('#clockBorder').css('border-color', 'green')
     clearInterval(interval);
     interval = setInterval(breakCountDown, 1000);
   }
@@ -72,6 +76,8 @@ function breakCountDown() {
 
     $('#actualClock').html(breakMinutesRemaining + ":" + ("0" + secondsRemaining).slice(-2));
   } else {
+    $.playSound('http://audiosoundclips.com/wp-content/uploads/2012/01/Bird');
+    $('#clockBorder').css('border-color', 'red');
     sessionMinutesRemaining = $('#sessionLength').text();
     sessionMinutesRemaining = (parseInt(sessionMinutesRemaining));
     $('#id').text('Session');
@@ -87,6 +93,7 @@ $('#sessionMinus').click(SessionMinus);
 $('#sessionPlus').click(SessionPlus);
 
 $("#clockBorder").click(function() {
+  $('#clockBorder').css('border-color', 'red');
   sessionLength = $('#sessionLength').text();
   sessionLength = (parseInt(sessionLength));
   breakLength = $('#breakLength').text();
