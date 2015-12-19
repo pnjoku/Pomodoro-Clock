@@ -7,21 +7,24 @@ a {
 }
 
 #clockBorder {
-    border-color: red;
-    border-width: 5px;
+    border-color: white;
+    border-width: 3px;
     border-style: solid;
-    border-radius: 0%;
+    border-radius: 5%;
+    background: black;
+    
 }
 span {
   font-size: 400%;
 }
 p {
-  font-size: 400%;
+  font-size: 300%;
 }
-a {
-  font-size: 400%;
-}
+
 
 #StopButton {
   display: none;
+}
+#id {
+  margin-top: 10px;
 }
